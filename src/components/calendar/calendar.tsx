@@ -116,23 +116,28 @@ export const Calendar: React.FC<CalendarProps> = ({
     const bottomValues: ReactNode[] = [];
     const topDefaultHeight = headerHeight * 0.5;
 
+    const quarterTextOffset = columnWidth * 0.5;
     for (let i = startColumnIndex; i <= endColumnIndex; i++) {
       const date = getDate(i);
-      const quarter = "Q" + Math.ceil((date.getMonth() + 1) / 3);
+      const quarterIndex = Math.ceil((date.getMonth() + 1) / 3);
+      const quarterText = "Q" + quarterIndex;
 
       // Bottom values for each quarter
+      const quarterXPosition = additionalLeftSpace + columnWidth * i;
       bottomValues.push(
         <text
-          key={`${quarter}-${date.getFullYear()}`}
+          key={`${quarterText}-${date.getFullYear()}`}
           y={headerHeight * 0.8}
-          x={additionalLeftSpace + columnWidth * i + columnWidth * 0.5}
+          x={quarterXPosition + quarterTextOffset}
           className={styles.calendarBottomText}
           style={{ fill: colors.barLabelColor }}
         >
-          {quarter}
+          {quarterText}
         </text>
       );
-
+      if (quarterIndex>1) {
+        continue;
+      }
       // Top values for the year
       if (
         !isUnknownDates &&
@@ -140,18 +145,15 @@ export const Calendar: React.FC<CalendarProps> = ({
           date.getFullYear() !== getDate(i - 1).getFullYear())
       ) {
         const topValue = date.getFullYear().toString();
-        const startQuarter = Math.floor(i / 3) * 3;
-
         topValues.push(
           <TopPartOfCalendar
             key={topValue}
             value={topValue}
-            x1Line={additionalLeftSpace + columnWidth * startQuarter}
+            x1Line={quarterXPosition}
             y1Line={0}
             y2Line={topDefaultHeight}
             xText={
-              additionalLeftSpace +
-              columnWidth * (startQuarter + 1.5) // Center the text
+              quarterXPosition+columnWidth*2
             }
             yText={topDefaultHeight * 0.9}
             colors={colors}
