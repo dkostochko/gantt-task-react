@@ -11,7 +11,7 @@ permissions:
 jobs:
   release:
     name: publish
-    if: ${{ github.repository_owner == 'wamra' }}
+    if: ${{ github.repository_owner == 'ssfm' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-          scope: '@wamra'
+          scope: '@ssfm'
           always-auth: true
           token: ${{ secrets.NODE_AUTH_TOKEN }}
 

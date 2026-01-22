@@ -15,7 +15,32 @@ export default defineConfig(() => {
         formats: ["es", "umd"],
         fileName: format => `gantt-task-react.${format}.js`,
       },
+      rollupOptions: {
+        external: [
+          "react",
+          "react-dom",
+          "react/jsx-runtime",
+          "@mui/material",
+          "@mui/icons-material",
+          "@mui/material/Popper",
+          "@mui/material/Paper",
+          "@mui/material/ClickAwayListener",
+        ],
+        output: {
+          globals: {
+            react: "React",
+            "react-dom": "ReactDOM",
+            "react/jsx-runtime": "jsxRuntime",
+            "@mui/material": "MaterialUI",
+            "@mui/icons-material": "MaterialIcons",
+            "@mui/material/Popper": "Popper",
+            "@mui/material/Paper": "Paper",
+            "@mui/material/ClickAwayListener": "ClickAwayListener",
+          },
+        },
+      },
     },
+
     test: {
       environment: "jsdom",
       coverage: {

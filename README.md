@@ -35,14 +35,14 @@ and feature expansions.
 Install the package using npm:
 
 ```bash
-npm install @wamra/gantt-task-react
+npm install @ssfm/gantt-task-react
 ```
 
 ## How to use it
 
 ```javascript
-import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from '@wamra/gantt-task-react';
-import "@wamra/gantt-task-react/dist/style.css";
+import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from '@@ssfm/gantt-task-react';
+import "@ssfm/gantt-task-react/dist/style.css";
 
 let tasks: Task[] = [
   {
