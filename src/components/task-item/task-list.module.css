@@ -12,6 +12,7 @@
 
 .barLabelOutside {
   text-anchor: start;
+  dominant-baseline: central;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;

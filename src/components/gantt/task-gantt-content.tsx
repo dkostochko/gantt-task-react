@@ -178,6 +178,8 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
         continue;
       }
 
+      const { isDisabled, showProgress = true } = task;
+
       const key = `${comparisonLevel}_${task.id}`;
 
       const criticalPathOnLevel = criticalPaths
@@ -233,12 +235,13 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
             distances={distances}
             taskHeight={taskHeight}
             taskHalfHeight={taskHalfHeight}
-            isProgressChangeable={!task.isDisabled}
-            isDateChangeable={!task.isDisabled}
+            isProgressChangeable={!isDisabled}
+            showProgress={showProgress}
+            isDateChangeable={!isDisabled}
             isRelationChangeable={!task.isRelationDisabled}
             authorizedRelations={authorizedRelations}
             ganttRelationEvent={ganttRelationEvent}
-            isDelete={!task.isDisabled}
+            isDelete={!isDisabled}
             onDoubleClick={onDoubleClick}
             onClick={onClick}
             onEventStart={handleTaskDragStart}

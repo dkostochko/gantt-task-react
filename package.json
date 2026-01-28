@@ -43,6 +43,7 @@
   ],
   "scripts": {
     "storybook": "storybook dev",
+    "storybook:clean": "rm -rf node_modules/.cache/storybook node_modules/.cache/sb-*",
     "build": "vite build && tsc",
     "start": "vite --host",
     "prepare": "run-s build",

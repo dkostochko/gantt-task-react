@@ -10,6 +10,7 @@ type BarDisplayProps = {
   isSelected: boolean;
   hasChildren: boolean;
   height: number;
+  showProgress: boolean;
   progressWidth: number;
   /* progress start point */
   progressX: number;
@@ -29,6 +30,7 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
   hasChildren,
   height,
   progressWidth,
+  showProgress,
   progressX,
   startMoveFullTask,
   styles,
@@ -124,15 +126,17 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
         fill={barColor}
         className={style.barBackground}
       />
-      <rect
-        x={progressX}
-        width={progressWidth}
-        y={y}
-        height={height}
-        ry={barCornerRadius}
-        rx={barCornerRadius}
-        fill={processColor}
-      />
+      {showProgress && (
+        <rect
+          x={progressX}
+          width={progressWidth}
+          y={y}
+          height={height}
+          ry={barCornerRadius}
+          rx={barCornerRadius}
+          fill={processColor}
+        />
+      )}
     </g>
   );
 };

@@ -14,7 +14,7 @@ export const BarSmall: React.FC<
 > = ({
   children: relationhandles,
   colorStyles,
-  distances: { barCornerRadius, handleWidth },
+  distances: { barCornerRadius, handleWidth, minimalBarWidth },
   hasChildren,
   isSelected,
   isCritical,
@@ -34,6 +34,13 @@ export const BarSmall: React.FC<
     [onTaskEventStart]
   );
 
+  const startMoveStartOfTask = useCallback(
+    (clientX: number) => {
+      onTaskEventStart("start", clientX);
+    },
+    [onTaskEventStart]
+  );
+
   const startMoveEndOfTask = useCallback(
     (clientX: number) => {
       onTaskEventStart("end", clientX);
@@ -41,6 +48,7 @@ export const BarSmall: React.FC<
     [onTaskEventStart]
   );
 
+  let handleHeight = taskHeight - 2;
   return (
     <g
       className={`${styles.barWrapper} ${stylesRelationHandle.barRelationHandleWrapper}`}
@@ -53,24 +61,36 @@ export const BarSmall: React.FC<
         height={taskHeight}
         isCritical={isCritical}
         isSelected={isSelected}
+        showProgress={false}
         progressWidth={progressWidth}
         progressX={progressX}
         startMoveFullTask={startMoveFullTask}
         styles={colorStyles}
-        width={handleWidth * 2}
+        width={minimalBarWidth}
         x={x1}
         y={taskYOffset}
       />
-
+      {/* left */}
+      {isDateChangeable && (
+        <BarDateHandle
+          dataTestid={`task-date-handle-left-${task.name}`}
+          barCornerRadius={barCornerRadius}
+          height={handleHeight}
+          startMove={startMoveStartOfTask}
+          width={handleWidth}
+          x={x1 - handleWidth}
+          y={taskYOffset + 1}
+        />
+      )}
       {/* right */}
       {isDateChangeable && (
         <BarDateHandle
           dataTestid={`task-date-handle-right-${task.name}`}
           barCornerRadius={barCornerRadius}
-          height={taskHeight - 2}
+          height={handleHeight}
           startMove={startMoveEndOfTask}
           width={handleWidth}
-          x={x1 + handleWidth}
+          x={x1 + minimalBarWidth}
           y={taskYOffset + 1}
         />
       )}

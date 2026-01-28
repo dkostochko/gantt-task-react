@@ -147,6 +147,7 @@ export interface Distances {
   handleWidth: number;
   headerHeight: number;
   minimumRowDisplayed: number;
+  minimalBarWidth: number;
   nestedTaskNameOffset: number;
   relationCircleOffset: number;
   relationCircleRadius: number;
@@ -171,6 +172,7 @@ export interface Task {
   assignees?: string[];
   styles?: Partial<ColorStyles>;
   isDisabled?: boolean;
+  showProgress?: boolean;
   isRelationDisabled?: boolean;
   /**
    * Project or task
@@ -190,6 +192,7 @@ export interface EmptyTask {
   comparisonLevel?: number;
   displayOrder?: number;
   isDisabled?: boolean;
+  showProgress?: boolean;
   styles?: Partial<ColorStyles>;
 }
 

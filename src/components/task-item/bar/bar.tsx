@@ -24,6 +24,7 @@ export const Bar: React.FC<
   isCritical,
   isDateChangeable,
   isProgressChangeable,
+  showProgress,
   isSelected,
   onTaskEventStart,
   progressWidth,
@@ -83,6 +84,7 @@ export const Bar: React.FC<
         width={width}
         taskHeight={taskHeight}
         taskHalfHeight={taskHalfHeight}
+        showProgress={showProgress}
         progressX={progressX}
         progressWidth={progressWidth}
         barCornerRadius={barCornerRadius}
@@ -101,6 +103,7 @@ export const Bar: React.FC<
         y={taskYOffset}
         width={width}
         height={taskHeight}
+        showProgress={showProgress}
         progressX={progressX}
         progressWidth={progressWidth}
         barCornerRadius={barCornerRadius}
@@ -128,7 +131,7 @@ export const Bar: React.FC<
           height={handleHeight}
           startMove={startMoveStartOfTask}
           width={handleWidth}
-          x={x1 + 1}
+          x={x1 - handleWidth}
           y={taskYOffset + 1}
         />
       )}
@@ -141,14 +144,14 @@ export const Bar: React.FC<
           height={handleHeight}
           startMove={startMoveEndOfTask}
           width={handleWidth}
-          x={x2 - handleWidth - 1}
+          x={x1+width}
           y={taskYOffset + 1}
         />
       )}
 
       {relationhandles}
 
-      {isProgressChangeable && (
+      {isProgressChangeable && showProgress && (
         <BarProgressHandle
           taskName={task.name}
           progressPoint={progressPoint}

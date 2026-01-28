@@ -11,6 +11,7 @@ type ProjectDisplayProps = {
   taskHeight: number;
   taskHalfHeight: number;
   taskYOffset: number;
+  showProgress: boolean;
   progressWidth: number;
   /* progress start point */
   progressX: number;
@@ -30,12 +31,13 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
   isSelected,
   isCritical,
   colorStyles,
+  showProgress,
   progressWidth,
   progressX,
   taskYOffset,
   width,
   x1,
-  x2,
+  //x2,
   startMoveFullTask,
 }) => {
   const barColor = useMemo(() => {
@@ -70,7 +72,7 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
     return colorStyles.projectProgressColor;
   }, [isSelected, isCritical, colorStyles]);
 
-  const projectLeftTriangle = [
+/*  const projectLeftTriangle = [
     x1,
     taskYOffset + taskHeight / 2 - 1,
     x1,
@@ -85,7 +87,7 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
     taskYOffset + taskHeight,
     x2 - 15,
     taskYOffset + taskHeight / 2 - 1,
-  ].join(",");
+  ].join(",");*/
 
   return (
     <g
@@ -113,35 +115,49 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
         ry={barCornerRadius}
         className={styles.projectBackground}
       />
-      <rect
-        x={progressX}
-        width={progressWidth}
-        y={taskYOffset}
-        height={taskHeight}
-        ry={barCornerRadius}
-        rx={barCornerRadius}
-        fill={processColor}
-      />
-      <rect
-        fill={barColor}
-        x={x1}
-        width={width}
-        y={taskYOffset}
-        height={taskHalfHeight}
-        rx={barCornerRadius}
-        ry={barCornerRadius}
-        className={styles.projectTop}
-      />
-      <polygon
-        className={styles.projectTop}
-        points={projectLeftTriangle}
-        fill={barColor}
-      />
-      <polygon
-        className={styles.projectTop}
-        points={projectRightTriangle}
-        fill={barColor}
-      />
+      {showProgress && (
+        <rect
+          x={progressX}
+          width={progressWidth}
+          y={taskYOffset}
+          height={taskHeight}
+          ry={barCornerRadius}
+          rx={barCornerRadius}
+          fill={processColor}
+        />
+      )}
+      {showProgress && (
+        <rect
+          fill={barColor}
+          x={x1}
+          width={width}
+          y={taskYOffset}
+          height={taskHalfHeight}
+          rx={barCornerRadius}
+          ry={barCornerRadius}
+          className={styles.projectTop}
+        />
+      )}
+      {showProgress && (
+        <rect
+          fill={barColor}
+          x={x1}
+          y={taskYOffset + taskHalfHeight - barCornerRadius}
+          width={barCornerRadius}
+          height={barCornerRadius}
+          className={styles.projectTop}
+        />
+      )}
+      {showProgress && (
+        <rect
+          fill={barColor}
+          x={x1 + width - barCornerRadius}
+          y={taskYOffset + taskHalfHeight - barCornerRadius}
+          width={barCornerRadius}
+          height={barCornerRadius}
+          className={styles.projectTop}
+        />
+      )}
     </g>
   );
 };

@@ -157,7 +157,8 @@ const defaultDistances: Distances = {
   relationCircleRadius: 5,
   rowHeight: 50,
   taskWarningOffset: 35,
-  titleCellWidth: 220
+  titleCellWidth: 220,
+  minimalBarWidth: 8,
 };
 
 const MINIMUM_DISPLAYED_TIME_UNIT = 30;

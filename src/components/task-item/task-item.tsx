@@ -21,7 +21,6 @@ import {
   DateExtremity,
 } from "../../types/public-types";
 import { Bar } from "./bar/bar";
-import { BarSmall } from "./bar/bar-small";
 import { Milestone } from "./milestone/milestone";
 import { TaskWarning } from "./task-warning";
 import style from "./task-list.module.css";
@@ -46,6 +45,7 @@ export type TaskItemProps = {
   taskHeight: number;
   taskHalfHeight: number;
   isProgressChangeable: boolean;
+  showProgress: boolean;
   isDateChangeable: boolean;
   authorizedRelations: RelationKind[];
   isRelationChangeable: boolean;
@@ -81,6 +81,7 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
       taskWarningOffset,
       relationCircleOffset,
       relationCircleRadius,
+      minimalBarWidth,
     },
     fixEndPosition = undefined,
     fixStartPosition = undefined,
@@ -100,7 +101,7 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
     rtl,
     selectTaskOnMouseDown,
     setTooltipTask,
-
+    showProgress,
     task,
     task: { styles: taskStyles },
 
@@ -252,7 +253,8 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
         ? isFromStartRelationAuthorized
         : isFromEndRelationAuthorized;
     }
-    const isSmallBar = width < handleWidth * 2;
+
+    const isSmallBar = width < minimalBarWidth;
     const relationhandles = (
       <>
         {/* left */}
@@ -260,7 +262,7 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
           <BarRelationHandle
             dataTestid={`task-relation-handle-left-${task.name}`}
             isRelationDrawMode={!!ganttRelationEvent}
-            x={x1 - relationCircleOffset}
+            x={x1 - relationCircleOffset - handleWidth}
             y={taskYOffset + taskHalfHeight}
             radius={relationCircleRadius}
             startDrawRelation={onLeftRelationTriggerMouseDown}
@@ -272,9 +274,9 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
             dataTestid={`task-relation-handle-right-${task.name}`}
             isRelationDrawMode={!!ganttRelationEvent}
             x={
-              !isSmallBar
-                ? x2 + relationCircleOffset
-                : x1 + 2 * handleWidth + relationCircleOffset
+              isSmallBar
+                ? x1 + minimalBarWidth + relationCircleOffset + handleWidth
+                : x2 + relationCircleOffset + handleWidth
             }
             y={taskYOffset + taskHalfHeight}
             radius={relationCircleRadius}
@@ -294,26 +296,19 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
           {relationhandles}
         </Milestone>
       );
-    } else if (isSmallBar) {
-      return (
-        <BarSmall
-          {...props}
-          colorStyles={styles}
-          onTaskEventStart={onTaskEventStart}
-        >
-          {relationhandles}
-        </BarSmall>
-      );
-    } else
+    } else {
       return (
         <Bar
           {...props}
-          onTaskEventStart={onTaskEventStart}
           colorStyles={styles}
+          width={isSmallBar ? minimalBarWidth : width }
+          showProgress={isSmallBar ? false : showProgress}
+          onTaskEventStart={onTaskEventStart}
         >
           {relationhandles}
         </Bar>
       );
+    }
   }, [
     handleWidth,
     isSelected,
@@ -360,7 +355,7 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
     setTooltipTask(null, null);
   }, [setTooltipTask]);
 
-  let barLabelFill = (isTextInside || task.type == "milestone") ? styles.barLabelColor : styles.barLabelWhenOutsideColor;
+  let barLabelFill = (isTextInside || task.type === "milestone") ? styles.barLabelColor : styles.barLabelWhenOutsideColor;
   return (
     <g
       className={fixWidthContainerClass}
