@@ -11,40 +11,36 @@ const dateFormat = "dd/MM/yyyy HH:mm";
 
 export function initTasks(): TaskOrEmpty[] {
   const currentDate = new Date();
+  let fullYear = currentDate.getFullYear();
+  let month = currentDate.getMonth();
   const tasks: TaskOrEmpty[] = [
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
+      start: new Date(fullYear, month, 2),
+      end: new Date(fullYear, month, 8),
       name: "Some Project",
       id: "ProjectSample",
       progress: 25,
       type: "project",
-      hideChildren: false
+      hideChildren: false,
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-      end: new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        2,
-        12,
-        28
-      ),
+      start: new Date(fullYear, month, 1),
+      end: new Date(fullYear, month, 2),
       name: "Idea",
       id: "Idea",
       progress: 45,
       type: "task",
-      parent: "ProjectSample"
+      parent: "ProjectSample",
     },
     {
       id: "taskWithoutDateId",
       type: "empty",
       name: "TaskWithoutDate",
-      parent: "ProjectSample"
+      parent: "ProjectSample",
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4, 0, 0),
+      start: new Date(fullYear, month, 2),
+      end: new Date(fullYear, month, 4, 0, 0),
       name: "Research",
       id: "Research",
       progress: 25,
@@ -52,15 +48,15 @@ export function initTasks(): TaskOrEmpty[] {
         {
           sourceId: "Idea",
           sourceTarget: "endOfTask",
-          ownTarget: "startOfTask"
-        }
+          ownTarget: "startOfTask",
+        },
       ],
       type: "task",
-      parent: "ProjectSample"
+      parent: "ProjectSample",
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8, 0, 0),
+      start: new Date(fullYear, month, 4),
+      end: new Date(fullYear, month, 8, 0, 0),
       name: "Discussion with team",
       id: "Discussion",
       progress: 10,
@@ -68,21 +64,15 @@ export function initTasks(): TaskOrEmpty[] {
         {
           sourceId: "Research",
           sourceTarget: "endOfTask",
-          ownTarget: "startOfTask"
-        }
+          ownTarget: "startOfTask",
+        },
       ],
       type: "task",
-      parent: "ProjectSample"
+      parent: "ProjectSample",
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-      end: new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        10,
-        0,
-        0
-      ),
+      start: new Date(fullYear, month, 8),
+      end: new Date(fullYear, month, 10, 0, 0),
       name: "Developing",
       id: "developing",
       progress: 50,
@@ -90,87 +80,258 @@ export function initTasks(): TaskOrEmpty[] {
         {
           sourceId: "Discussion",
           sourceTarget: "endOfTask",
-          ownTarget: "startOfTask"
-        }
+          ownTarget: "startOfTask",
+        },
       ],
       type: "project",
       parent: "ProjectSample",
       isDisabled: true,
-      hideChildren: true
+      hideChildren: true,
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 9),
+      start: new Date(fullYear, month, 8),
+      end: new Date(fullYear, month, 9),
       name: "Code",
       id: "code",
       type: "task",
       progress: 40,
-      parent: "developing"
+      parent: "developing",
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 9),
+      start: new Date(fullYear, month, 8),
+      end: new Date(fullYear, month, 9),
       name: "Frontend",
       id: "frontend",
       type: "task",
       progress: 40,
       parent: "code",
-      assignees: ["Bob", "Peter"]
+      assignees: ["Bob", "Peter"],
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 9),
+      start: new Date(fullYear, month, 8),
+      end: new Date(fullYear, month, 9),
       name: "Backend",
       id: "backend",
       type: "task",
       progress: 40,
       parent: "code",
-      assignees: ["Marc"]
+      assignees: ["Marc"],
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 10),
+      start: new Date(fullYear, month, 8),
+      end: new Date(fullYear, month, 10),
       name: "Review",
       id: "review",
       type: "task",
       progress: 70,
-      parent: "developing"
+      parent: "developing",
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
+      start: new Date(fullYear, month, 15),
+      end: new Date(fullYear, month, 15),
       name: "Release",
       id: "release",
-      progress: currentDate.getMonth(),
+      progress: month,
       type: "milestone",
       dependencies: [
         {
           sourceId: "review",
           sourceTarget: "endOfTask",
-          ownTarget: "startOfTask"
-        }
+          ownTarget: "startOfTask",
+        },
       ],
-      parent: "ProjectSample"
+      parent: "ProjectSample",
     },
     {
-      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 18),
-      end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 19),
+      start: new Date(fullYear, month, 18),
+      end: new Date(fullYear, month, 19),
       name: "Party Time",
       id: "party",
       progress: 0,
       isDisabled: true,
       isRelationDisabled: true,
-      type: "task"
-    }
+      type: "task",
+    },
   ];
 
+  // Return the task as-is if it doesn't have 'start' and 'end'
+  return adjustStartAndFinish(tasks);
+}
+
+export function initSmallTasks(): TaskOrEmpty[] {
+  const currentDate = new Date();
+  let fullYear = currentDate.getFullYear();
+  let month = currentDate.getMonth();
+  const tasks: TaskOrEmpty[] = [
+    {
+      start: new Date(fullYear, month, 1),
+      end: new Date(fullYear, month, 2),
+      name: "Some Project",
+      id: "ProjectSample",
+      showProgress: true,
+      progress: 25,
+      type: "project",
+      hideChildren: false,
+    },
+    {
+      start: new Date(fullYear, month, 2),
+      end: new Date(fullYear, month, 2),
+      name: "Idea Great",
+      id: "Idea",
+      showProgress: false,
+      progress: 45,
+      type: "task",
+      parent: "ProjectSample",
+    },
+    {
+      start: new Date(fullYear, month, 2),
+      end: new Date(fullYear, month, 2),
+      name: "Idea 2",
+      id: "Idea2",
+      showProgress: false,
+      progress: 45,
+      type: "task",
+      parent: "ProjectSample",
+      dependencies: [
+        {
+          sourceId: "Idea",
+          sourceTarget: "endOfTask",
+          ownTarget: "startOfTask",
+        },
+      ],
+    },
+    {
+      start: new Date(fullYear, month, 3),
+      end: new Date(fullYear, month, 3),
+      name: "Party Time",
+      id: "party",
+      progress: 50,
+      //isDisabled: true,
+      //isRelationDisabled: true,
+      type: "project",
+    },
+    {
+      start: new Date(fullYear, month, 3),
+      end: new Date(fullYear, month, 3),
+      name: "Party Time",
+      id: "party1",
+      progress: 0,
+      //isDisabled: true,
+      //isRelationDisabled: true,
+      parent: "party",
+      type: "task",
+    },
+  ];
+
+  // Return the task as-is if it doesn't have 'start' and 'end'
+  return adjustStartAndFinish(tasks);
+}
+
+export function problem() {
+  const tasks: TaskOrEmpty[] = [
+    {
+      id: "topics",
+      type: "project",
+      start: new Date("2026-01-19T21:00:00.000Z"),
+      end: new Date("2026-01-27T20:59:59.999Z"),
+      name: "Group Title",
+      assignees: [],
+      progress: 0,
+      isDisabled: true,
+      isRelationDisabled: true,
+    },
+    {
+      id: "11069822532:date4",
+      name: "Item 5",
+      parent: "topics",
+      assignees: [],
+      type: "task",
+      progress: 0,
+      start: new Date("2026-01-19T21:00:00.000Z"),
+      end: new Date("2026-01-20T20:59:59.999Z"),
+      dependencies: [],
+      isDisabled: true,
+      isRelationDisabled: true,
+    },
+    {
+      id: "11069818348:date4",
+
+      name: "Item 2",
+      parent: "topics",
+      assignees: [],
+      type: "task",
+      progress: 0,
+      start: new Date("2026-01-22T21:00:00.000Z"),
+      end: new Date("2026-01-23T20:59:59.999Z"),
+      dependencies: [],
+      isDisabled: true,
+      isRelationDisabled: true,
+    },
+    {
+      id: "group_title",
+      type: "project",
+      start: new Date("2026-01-22T21:00:00.000Z"),
+      end: new Date("2026-01-23T20:59:59.999Z"),
+      name: "Group Title",
+      assignees: [],
+      progress: 0,
+      isDisabled: true,
+      isRelationDisabled: true,
+    },
+    {
+      id: "11069818957:date4",
+
+      name: "Item 4",
+      parent: "group_title",
+      assignees: [],
+      type: "task",
+      progress: 0,
+      start: new Date("2026-01-22T21:00:00.000Z"),
+      end: new Date("2026-01-23T20:59:59.999Z"),
+      dependencies: [],
+      isDisabled: true,
+      isRelationDisabled: true,
+    },
+    {
+      id: "11069822591:date4",
+
+      name: "Item 1",
+      parent: "topics",
+      assignees: [],
+      type: "task",
+      progress: 0,
+      start: new Date("2026-01-26T21:00:00.000Z"),
+      end: new Date("2026-01-27T20:59:59.999Z"),
+      dependencies: [],
+      isDisabled: true,
+      isRelationDisabled: true,
+    },
+    {
+      id: "11069818594:date4",
+
+      name: "Item 3",
+      parent: "topics",
+      assignees: [],
+      type: "task",
+      progress: 0,
+      start: new Date("2026-01-26T21:00:00.000Z"),
+      end: new Date("2026-01-27T20:59:59.999Z"),
+      dependencies: [],
+      isDisabled: true,
+      isRelationDisabled: true,
+    },
+  ];
+  return adjustStartAndFinish(tasks);
+}
+
+function adjustStartAndFinish(tasks: TaskOrEmpty[]): TaskOrEmpty[] {
   return tasks.map(taskOrEmpty => {
     if ("start" in taskOrEmpty && "end" in taskOrEmpty) {
       const task = taskOrEmpty as Task;
       return {
         ...task,
         start: startOfDay(task.start),
-        end: endOfDay(task.end)
+        end: endOfDay(task.end),
       };
     }
     // Return the task as-is if it doesn't have 'start' and 'end'
@@ -204,37 +365,37 @@ export const getTaskFields = (initialValues: {
   return {
     name,
     start: isValid(startDate) ? startDate : null,
-    end: isValid(endDate) ? endDate : null
+    end: isValid(endDate) ? endDate : null,
   };
 };
 
 export const onAddTask = (parentTask: Task) => {
   const taskFields = getTaskFields({
     start: parentTask.start,
-    end: parentTask.end
+    end: parentTask.end,
   });
 
   const nextTask: TaskOrEmpty =
     taskFields.start && taskFields.end
       ? {
-        type: "task",
-        start: taskFields.start,
-        end: taskFields.end,
-        comparisonLevel: parentTask.comparisonLevel,
-        id: String(Date.now()),
-        name: taskFields.name || "",
-        progress: 0,
-        parent: parentTask.id,
-        styles: parentTask.styles
-      }
+          type: "task",
+          start: taskFields.start,
+          end: taskFields.end,
+          comparisonLevel: parentTask.comparisonLevel,
+          id: String(Date.now()),
+          name: taskFields.name || "",
+          progress: 0,
+          parent: parentTask.id,
+          styles: parentTask.styles,
+        }
       : {
-        type: "empty",
-        comparisonLevel: parentTask.comparisonLevel,
-        id: String(Date.now()),
-        name: taskFields.name || "",
-        parent: parentTask.id,
-        styles: parentTask.styles
-      };
+          type: "empty",
+          comparisonLevel: parentTask.comparisonLevel,
+          id: String(Date.now()),
+          name: taskFields.name || "",
+          parent: parentTask.id,
+          styles: parentTask.styles,
+        };
 
   return Promise.resolve(nextTask);
 };
@@ -243,40 +404,42 @@ export const onEditTask = (task: TaskOrEmpty) => {
   const taskFields = getTaskFields({
     name: task.name,
     start: task.type === "empty" ? null : (task as Task).start,
-    end: task.type === "empty" ? null : (task as Task).end
+    end: task.type === "empty" ? null : (task as Task).end,
   });
 
   let nextTask: TaskOrEmpty;
   if (task.type === "task" || task.type === "empty") {
-    nextTask = taskFields.start && taskFields.end
-      ? {
-        type: "task",
-        start: taskFields.start,
-        end: taskFields.end,
-        comparisonLevel: task.comparisonLevel,
-        id: task.id,
-        name: taskFields.name || task.name,
-        progress: task.type === "empty" ? 0 : (task as Task).progress,
-        dependencies: task.type === "empty" ? undefined : (task as Task).dependencies,
-        parent: task.parent,
-        styles: task.styles,
-        isDisabled: task.isDisabled
-      }
-      : {
-        type: "empty",
-        comparisonLevel: task.comparisonLevel,
-        id: task.id,
-        name: taskFields.name || task.name,
-        parent: task.parent,
-        styles: task.styles,
-        isDisabled: task.isDisabled
-      } as EmptyTask;
+    nextTask =
+      taskFields.start && taskFields.end
+        ? {
+            type: "task",
+            start: taskFields.start,
+            end: taskFields.end,
+            comparisonLevel: task.comparisonLevel,
+            id: task.id,
+            name: taskFields.name || task.name,
+            progress: task.type === "empty" ? 0 : (task as Task).progress,
+            dependencies:
+              task.type === "empty" ? undefined : (task as Task).dependencies,
+            parent: task.parent,
+            styles: task.styles,
+            isDisabled: task.isDisabled,
+          }
+        : ({
+            type: "empty",
+            comparisonLevel: task.comparisonLevel,
+            id: task.id,
+            name: taskFields.name || task.name,
+            parent: task.parent,
+            styles: task.styles,
+            isDisabled: task.isDisabled,
+          } as EmptyTask);
   } else {
     nextTask = {
       ...task,
       name: taskFields.name || task.name,
       start: taskFields.start || (task as Task).start,
-      end: taskFields.end || (task as Task).end
+      end: taskFields.end || (task as Task).end,
     } as Task;
   }
 
